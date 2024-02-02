@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Main } from "../Main/Main";
+import axios from "axios";
 
 // доступ к API сервиса погоды
 const API_KEY = "b99029904b0075626a99a6fc2ebb32d6";
@@ -14,16 +15,27 @@ export const Info = () => {
   // обработчик, который срабатывает когда нажата клавиша Enter
   const search = (evt) => {
     if (evt.key === "Enter") {
-      fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&&appid=${API_KEY}&lang`
-      ) // отправляем запрос
-        .then((res) => res.json()) // ответ преобразуем в json
-        .then((result) => {
-          // работаем с результатом
-          setWeather(result);
+      axios
+        .get(
+          `https://api.openweathermap.org/data/2.5/weather?q=${city}&&appid=${API_KEY}&lang`
+        )
+        .then((response) => {
+          setWeather(response.data);
           setCity("");
-          console.log(result);
+        })
+        .catch((error) => {
+          console.log("error", error);
         });
+      // fetch(
+      //   `https://api.openweathermap.org/data/2.5/weather?q=${city}&&appid=${API_KEY}&lang`
+      // ) // отправляем запрос
+      //   .then((res) => res.json()) // ответ преобразуем в json
+      //   .then((result) => {
+      //     // работаем с результатом
+      //     setWeather(result);
+      //     setCity("");
+      //     console.log(result);
+      //   });
     }
   };
 
