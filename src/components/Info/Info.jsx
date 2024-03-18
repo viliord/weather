@@ -2,8 +2,10 @@ import { useState } from "react";
 import { Main } from "../Main/Main";
 import axios from "axios";
 
+
+console.log(import.meta.env.VITE_API_KEY);
 // доступ к API сервиса погоды
-const API_KEY = "b99029904b0075626a99a6fc2ebb32d6";
+//const API_KEY = "b99029904b0075626a99a6fc2ebb32d6";
 
 export const Info = () => {
   // действия при изменении города в поле ввода
@@ -17,7 +19,7 @@ export const Info = () => {
     if (evt.key === "Enter") {
       axios
         .get(
-          `https://api.openweathermap.org/data/2.5/weather?q=${city}&&appid=${API_KEY}&lang`
+          `https://api.openweathermap.org/data/2.5/weather?q=${city}&&appid=${import.meta.env.VITE_API_KEY}&lang`
         )
         .then((response) => {
           setWeather(response.data);
